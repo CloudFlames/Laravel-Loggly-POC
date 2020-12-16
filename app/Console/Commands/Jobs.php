@@ -73,7 +73,11 @@ class Jobs extends Command
             ],
         ];
         foreach($jobs as $job) {
-            Log::channel('loggly')->info($job);
+            if($job['success']) {
+                Log::channel('loggly')->info('Job Success', $job);
+            } else {
+                Log::channel('loggly')->error('Job Failure', $job);
+            } 
         }
     }
 }
